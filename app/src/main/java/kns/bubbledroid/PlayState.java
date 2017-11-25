@@ -1,7 +1,14 @@
 package kns.bubbledroid;
 
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Point;
+import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.content.Context;
+import android.graphics.Color;
+import java.util.HashSet;
+
 
 /**@author David
  * concrete implementation of gamestate
@@ -13,10 +20,23 @@ public class PlayState extends SurfaceView implements Runnable {
 
     //PlayState continues while running == True
     private boolean running;
+    private SurfaceHolder surfaceHolder;
+    private Canvas canvas;
+    private Paint paint;
+
+    private BubbleManager bubbleManager;
 
     public PlayState(Context context) {
         super(context);
 
+        surfaceHolder = getHolder();
+        paint = new Paint();
+
+        bubbleManager = new BubbleManager(new HashSet<Bubble>());
+        bubbleManager.registerBubble(new Bubble(new Point(50,50),0,0, Color.WHITE, context));
+
+        running = true;
+        System.out.println("Did we get here?");
         Thread t = new Thread(this);
         t.start();
     }
@@ -32,11 +52,11 @@ public class PlayState extends SurfaceView implements Runnable {
     }
 
     private void update(float dt) {
-
+        bubbleManager.update(dt);
     }
 
     private void draw() {
-
+        bubbleManager.draw(canvas, paint, surfaceHolder);
     }
 
     public void pause() {

@@ -1,5 +1,10 @@
 package kns.bubbledroid;
 
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.view.SurfaceHolder;
+import android.graphics.Canvas;
+
 import java.util.Iterator;
 import java.util.Set;
 
@@ -14,12 +19,28 @@ public class BubbleManager {
         this.bubbles=bubbles;
     }
 
-    public boolean update(float delta){
+    public boolean update(float dt){
         Iterator<Bubble> i = bubbles.iterator();
-        while(i.hasNext()){
-            //TODO actually do things here, bubbles need to move and pop and whatnot
-            continue;
+        for(Bubble b: bubbles) {
+            //TODO: something
         }
         return !bubbles.isEmpty();
+    }
+
+    public void draw(Canvas canvas, Paint paint, SurfaceHolder surfaceHolder) {
+        if (surfaceHolder.getSurface().isValid()) {
+            canvas = surfaceHolder.lockCanvas();
+            canvas.drawColor(Color.BLACK);
+
+            for(Bubble b: bubbles) {
+                canvas.drawBitmap(b.getBitmap(), b.getX(), b.getY(), paint);
+             }
+
+            surfaceHolder.unlockCanvasAndPost(canvas);
+        }
+    }
+
+    public boolean registerBubble(Bubble newBubble) {
+        return bubbles.add(newBubble);
     }
 }

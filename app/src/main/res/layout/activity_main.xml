@@ -11,9 +11,9 @@
         android:id="@+id/playButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="125dp"
+        android:layout_alignBottom="@+id/helpButton"
+        android:layout_alignStart="@+id/helpButton"
+        android:layout_marginBottom="78dp"
         android:background="@android:color/transparent"
         android:visibility="visible"
         app:srcCompat="@drawable/play" />
@@ -22,9 +22,8 @@
         android:id="@+id/optionsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/playButton"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="90dp"
         android:background="@android:color/transparent"
         app:srcCompat="@drawable/options" />
 
@@ -32,10 +31,19 @@
         android:id="@+id/helpButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/optionsButton"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginBottom="80dp"
         android:background="@android:color/transparent"
         app:srcCompat="@drawable/help" />
+
+    <ImageView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/helpButton"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="162dp"
+        app:srcCompat="@drawable/title" />
 </RelativeLayout>
 

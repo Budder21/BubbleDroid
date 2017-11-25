@@ -1,24 +1,32 @@
 package kns.bubbledroid;
 
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Bitmap;
+import android.content.Context;
+
 
 /**
- * @author David
+ * @author David and Calvin
  */
 
 public class Bubble {
 
-    private Color color;
+    private int color;
     private Point position;
     private float xvel;
     private float yvel;
 
-    public Bubble(Point position, float xvel, float yvel, Color color){
+    private Bitmap bitmap;
+
+    public Bubble(Point position, float xvel, float yvel, int color, Context context){
         this.position = position;
         this.color = color;
         this.xvel = xvel;
         this.yvel = yvel;
+
+        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.bubble);
     }
 
     @Override
@@ -29,5 +37,21 @@ public class Bubble {
     @Override
     public int hashCode(){
         return toString().hashCode();
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public Point getPosition() {
+        return position;
+    }
+
+    public int getX() {
+        return position.x;
+    }
+
+    public int getY() {
+        return position.y;
     }
 }
