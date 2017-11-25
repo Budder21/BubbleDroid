@@ -3,10 +3,11 @@ package kns.bubbledroid;
 /** @author David
  *  defines characteristics for all of the game state objects
  *  contains init() and a refrence to the game state manager */
-public abstract class GameState {
+public interface GameState {
 
-    private GameManager manager;
+    public void init();
 
-    public abstract void init();
+    void pause();
+    void resume();
 
 }
