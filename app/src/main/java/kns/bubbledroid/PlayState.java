@@ -56,7 +56,14 @@ public class PlayState extends SurfaceView implements Runnable {
     }
 
     private void draw() {
-        bubbleManager.draw(canvas, paint, surfaceHolder);
+        if (surfaceHolder.getSurface().isValid()) {
+            canvas = surfaceHolder.lockCanvas();
+            //canvas.drawColor(Color.BLACK);
+
+            bubbleManager.draw(canvas, paint, surfaceHolder);
+
+            surfaceHolder.unlockCanvasAndPost(canvas);
+        }
     }
 
     public void pause() {

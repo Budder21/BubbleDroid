@@ -28,16 +28,12 @@ public class BubbleManager {
     }
 
     public void draw(Canvas canvas, Paint paint, SurfaceHolder surfaceHolder) {
-        if (surfaceHolder.getSurface().isValid()) {
-            canvas = surfaceHolder.lockCanvas();
-            canvas.drawColor(Color.BLACK);
-
             for(Bubble b: bubbles) {
-                canvas.drawBitmap(b.getBitmap(), b.getX(), b.getY(), paint);
+                //canvas.drawBitmap(b.getBitmap(), b.getX(), b.getY(), paint);
+                paint.setColor(Color.WHITE);
+                paint.setStyle(Paint.Style.STROKE);
+                canvas.drawCircle(b.getX(),b.getY(),50,paint);
              }
-
-            surfaceHolder.unlockCanvasAndPost(canvas);
-        }
     }
 
     public boolean registerBubble(Bubble newBubble) {
