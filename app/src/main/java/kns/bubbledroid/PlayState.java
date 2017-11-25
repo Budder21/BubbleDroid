@@ -29,6 +29,8 @@ public class PlayState extends SurfaceView implements Runnable {
     public PlayState(Context context) {
         super(context);
 
+        setBackgroundResource(R.drawable.background);
+
         surfaceHolder = getHolder();
         paint = new Paint();
 
