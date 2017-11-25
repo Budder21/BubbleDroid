@@ -8,7 +8,7 @@ import android.content.Context;
  * implements Runnable for threading
  * describes the state of active gameplay */
 
-public class PlayState extends SurfaceView implements Runnable, GameState {
+public class PlayState extends SurfaceView implements Runnable {
 
 
     //PlayState continues while running == True
@@ -16,6 +16,9 @@ public class PlayState extends SurfaceView implements Runnable, GameState {
 
     public PlayState(Context context) {
         super(context);
+
+        Thread t = new Thread(this);
+        t.start();
     }
 
     @Override
@@ -36,20 +39,12 @@ public class PlayState extends SurfaceView implements Runnable, GameState {
 
     }
 
-    @Override
     public void pause() {
 
     }
 
-    @Override
     public void resume() {
 
-    }
-
-    @Override
-    public void init() {
-        Thread t = new Thread(this);
-        t.start();
     }
 
 }
