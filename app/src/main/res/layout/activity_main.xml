@@ -11,13 +11,12 @@
         android:id="@+id/playButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-<<<<<<< HEAD
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="125dp"
         android:background="@android:color/transparent"
         android:visibility="visible"
-        app:srcCompat="@drawable/Play" />
+        app:srcCompat="@drawable/play" />
 
     <ImageButton
         android:id="@+id/optionsButton"
@@ -27,7 +26,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="90dp"
         android:background="@android:color/transparent"
-        app:srcCompat="@drawable/Options" />
+        app:srcCompat="@drawable/options" />
 
     <ImageButton
         android:id="@+id/helpButton"
@@ -37,17 +36,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:background="@android:color/transparent"
-        app:srcCompat="@drawable/Help" />
+        app:srcCompat="@drawable/help" />
 </RelativeLayout>
-=======
-        android:contentDescription="Background image for menu and game"
-        android:scaleType="fitXY"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/background" />
-</android.support.constraint.ConstraintLayout>
->>>>>>> e447ca602c2d8d3010b3d89c37c7546a4e10eaac
+
