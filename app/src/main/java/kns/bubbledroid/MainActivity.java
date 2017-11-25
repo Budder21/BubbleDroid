@@ -14,12 +14,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Paint paint = new Paint();
+        /*Paint paint = new Paint();
         paint.setColor(0);
         Bitmap bitmap = Bitmap.createBitmap(480,800,Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         canvas.drawRect(50,50,200,200,paint);
         LinearLayout layout = (LinearLayout) findViewById(R.id.all);
-        layout.setBackgroundDrawable(new BitmapDrawable(bitmap));
+        layout.setBackgroundDrawable(new BitmapDrawable(bitmap)); */
     }
 }
