@@ -18,15 +18,11 @@ public class Bubble {
     private float xvel;
     private float yvel;
 
-    private Bitmap bitmap;
-
-    public Bubble(Point position, float xvel, float yvel, int color, Context context){
+    public Bubble(Point position, float xvel, float yvel, int color){
         this.position = position;
         this.color = color;
         this.xvel = xvel;
         this.yvel = yvel;
-
-        bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.bubble);
     }
 
     @Override
@@ -37,10 +33,6 @@ public class Bubble {
     @Override
     public int hashCode(){
         return toString().hashCode();
-    }
-
-    public Bitmap getBitmap() {
-        return bitmap;
     }
 
     public Point getPosition() {

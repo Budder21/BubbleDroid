@@ -35,10 +35,9 @@ public class PlayState extends SurfaceView implements Runnable {
         paint = new Paint();
 
         bubbleManager = new BubbleManager(new HashSet<Bubble>());
-        bubbleManager.registerBubble(new Bubble(new Point(50,50),0,0, Color.WHITE, context));
+        bubbleManager.registerBubble(new Bubble(new Point(50,50),0,0, Color.WHITE));
 
         running = true;
-        System.out.println("Did we get here?");
         Thread t = new Thread(this);
         t.start();
     }
