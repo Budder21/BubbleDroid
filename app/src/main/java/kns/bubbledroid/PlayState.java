@@ -97,14 +97,8 @@ public class PlayState extends SurfaceView implements Runnable {
     }
 
     public void onTouch(MotionEvent e) {
-         if(bubbleManager.poppedBubble(new Vector2D(e.getX(), e.getY()))) {
-            Thread t = new Thread(()-> {
-                long startTime = System.currentTimeMillis();
-                while(System.currentTimeMillis() - startTime < (int)(Math.random() * 1000) + 500);
-                bubbleManager.addNewBubble(this.getDisplay());
-            });
-            t.start();
-        }
+        bubbleManager.poppedBubble(new Vector2D(e.getX(), e.getY()));
+        //TODO: if true, get score increase
     }
 
 }

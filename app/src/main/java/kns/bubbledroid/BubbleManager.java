@@ -29,46 +29,53 @@ public class BubbleManager {
     }
 
     public boolean update(float dt){
-        Iterator<Bubble> i = bubbles.iterator();
-        for(Bubble b: bubbles) {
-            b.update(dt, speedFactor);
-            if(b.getX() - b.getRadius() <= 0)
-                b.setXVel(Math.abs(b.getXVel()));
-            else if(b.getX() + b.getRadius() > display.getWidth())
-                b.setXVel(-Math.abs(b.getXVel()));
+        synchronized (bubbles) {
+            for (int i = 0; i < bubbles.size(); i++) {
+                Bubble b = bubbles.get(i);
+                b.update(dt, speedFactor);
+                if (b.getX() - b.getRadius() <= 0)
+                    b.setXVel(Math.abs(b.getXVel()));
+                else if (b.getX() + b.getRadius() > display.getWidth())
+                    b.setXVel(-Math.abs(b.getXVel()));
 
-            if(b.getY() - b.getRadius() <= 0)
-                b.setYVel(Math.abs(b.getYVel()));
-            else if(b.getY() + b.getRadius() > display.getHeight())
-                b.setYVel(-Math.abs(b.getYVel()));
+                if (b.getY() - b.getRadius() <= 0)
+                    b.setYVel(Math.abs(b.getYVel()));
+                else if (b.getY() + b.getRadius() > display.getHeight())
+                    b.setYVel(-Math.abs(b.getYVel()));
+                if(b.getRadius() >= b.getMaxRadius()) {
+                    popBubble(b, false);
+                    i--;
+                }
+            }
 
-        }
 
-        for(Bubble b1: bubbles) {
-            for(Bubble b2: bubbles) {
-                if(b1 != b2 && b1.getPosVector().difference(b2.getPosVector()).length() < b1.getRadius() + b2.getRadius())
-                    fixBubbleCollision(b1, b2);
+            for (Bubble b1 : bubbles) {
+                for (Bubble b2 : bubbles) {
+                    if (b1 != b2 && b1.getPosVector().difference(b2.getPosVector()).length() < b1.getRadius() + b2.getRadius())
+                        fixBubbleCollision(b1, b2);
+                }
             }
         }
-
         return !bubbles.isEmpty();
     }
 
     public void draw(Canvas canvas, Paint paint, SurfaceHolder surfaceHolder) {
         paint.setStrokeWidth(3);
-            for(Bubble b: bubbles) {
+        synchronized (bubbles) {
+            for (Bubble b : bubbles) {
                 //canvas.drawBitmap(b.getBitmap(), b.getX(), b.getY(), paint);
                 paint.setColorFilter(new LightingColorFilter(b.getColor(), b.getColor()));
                 paint.setColor(Color.WHITE);
                 paint.setStyle(Paint.Style.STROKE);
-                canvas.drawCircle(b.getX(),b.getY(),b.getRadius(),paint);
+                canvas.drawCircle(b.getX(), b.getY(), b.getRadius(), paint);
 
-                paint.setColor(Color.argb(50,255,255,255));
+                paint.setColor(Color.argb(50, 255, 255, 255));
                 paint.setStyle(Paint.Style.FILL);
-                canvas.drawCircle(b.getX(),b.getY(),b.getRadius(),paint);
+                canvas.drawCircle(b.getX(), b.getY(), b.getRadius(), paint);
             }
             paint.setColorFilter(null);
             paint.setAlpha(255);
+        }
     }
 
     public boolean addNewBubble(Display d) {
@@ -84,7 +91,9 @@ public class BubbleManager {
 
         int color = Color.rgb( (int)(Math.random() * 255),(int)(Math.random() * 255),(int)(Math.random() * 255) );
 
-        return bubbles.add(new Bubble(x,y, xvel, yvel, color));
+        synchronized (bubbles) {
+            return bubbles.add(new Bubble(x, y, xvel, yvel, color));
+        }
     }
 
     public int numberOfBubbles() {
@@ -106,14 +115,24 @@ public class BubbleManager {
             }
         }
         if(bub!= null) {
-            popBubble(bub);
+            popBubble(bub, true);
             return true;
         }
         return false;
     }
 
-    private void popBubble(Bubble b) {
-        System.out.println(bubbles.remove(b));
+    private void popBubble(Bubble b, boolean bonus) {
+        synchronized (bubbles) {
+            bubbles.remove(b);
+        }
+        Thread t = new Thread(()-> {
+            long startTime = System.currentTimeMillis();
+            while(System.currentTimeMillis() - startTime < (int)(Math.random() * 1000) + 500);
+            addNewBubble(display);
+            if(bonus && Math.random() > 0.8)
+                addNewBubble(display);
+        });
+        t.start();
     }
 
     private void fixBubbleCollision(Bubble b1, Bubble b2) {
