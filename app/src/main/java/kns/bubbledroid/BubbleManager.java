@@ -109,9 +109,11 @@ public class BubbleManager {
 
     public boolean poppedBubble(Vector2D point) {
         Bubble bub = null;
-        for(Bubble b: bubbles) {
-            if(b.getPosVector().difference(point).length() < b.getRadius()) {
-                bub = b;
+        synchronized (bubbles) {
+            for (Bubble b : bubbles) {
+                if (b.getPosVector().difference(point).length() < b.getRadius()) {
+                    bub = b;
+                }
             }
         }
         if(bub!= null) {
