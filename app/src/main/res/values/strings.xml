@@ -3,4 +3,8 @@
     <string name="help_menu_back_button">BACK</string>
     <string name="help_menu_help_text">tells the user how to play the game</string>
     <string name="Game_Over_BackGround_Image_Description">background image</string>
+    <string name="Game_Over_Title">Game Over</string>
+    <string name="Game_Over_Main_Menu_Button_Text">Main Menu</string>
+    <string name="Game_Over_Play_Again_Button_Text">Play Again</string>
+    <string name="Game_Over_Score_Text">Your Score:</string>
 </resources>
