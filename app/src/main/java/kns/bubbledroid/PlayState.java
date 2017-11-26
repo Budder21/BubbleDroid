@@ -77,7 +77,10 @@ public class PlayState extends SurfaceView implements Runnable {
     private void update(float dt) {
         bubbleManager.update(dt);
         time -= dt;
-        System.out.println(time);
+        if(time<=0) {
+            time = 0;
+            //TODO switch activity
+        }
     }
 
     private void draw() {
