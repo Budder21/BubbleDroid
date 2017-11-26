@@ -18,9 +18,15 @@ public class GameOver extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_over);
 
-        Button tryAgainButton = (Button)findViewById(R.id);
-        playButton.setOnClickListener(e->{
+        Button tryAgainButton = (Button)findViewById(R.id.Game_Over_Replay_Button);
+        tryAgainButton.setOnClickListener(e->{
+            System.out.println("New Game");
             startActivity(new Intent(this, GameActivity.class));
+        });
+        Button homeButton = (Button)findViewById(R.id.Game_Over_Home_Button);
+        tryAgainButton.setOnClickListener(e->{
+            System.out.println("Home Menu");
+            startActivity(new Intent(this, MainActivity.class));
         });
     }
 }

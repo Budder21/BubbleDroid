@@ -13,21 +13,40 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 
-/**@author David
+/**@author David and Calvin
  * This class contains all the bubbles that appear on the screen
  * and manages their actions and wearabouts */
 public class BubbleManager {
 
+    /**
+     * The list of bubbles contained in the manager
+     */
     private ArrayList<Bubble> bubbles;
+    /**
+     * The display used by the current Action
+     */
     private Display display;
-
+    /**
+     * The speed factor is a multiplier for the bubble's movement speed
+     */
     private float speedFactor;
 
+    /**
+     * The inly and default constructor of the BubbleManager. It creates an empty list of bubbles and sets the
+     * speed factor to 5
+     */
     public BubbleManager(){
         this.bubbles= new ArrayList<Bubble> ();
         speedFactor = 5;
     }
 
+    //TODO: actually implement collision detection and reaction
+    /**
+     * Used to update all the bubbles. It moves them, pops them if they get too big, and deals with
+     * bubble collisions
+     * @param dt delta time, or the change in time sense this method was last called
+     * @return whether or not there are still bubbles in the list
+     */
     public boolean update(float dt){
         synchronized (bubbles) {
             for (int i = 0; i < bubbles.size(); i++) {
@@ -59,7 +78,13 @@ public class BubbleManager {
         return !bubbles.isEmpty();
     }
 
-    public void draw(Canvas canvas, Paint paint, SurfaceHolder surfaceHolder) {
+    //TODO: blurring behind bubbles
+    /**
+     * Used to draw all the bubbles to the current canvas
+     * @param canvas the canvas being drawn to
+     * @param paint the paint object being used to paint with
+     */
+    public void draw(Canvas canvas, Paint paint) {
         paint.setStrokeWidth(3);
         synchronized (bubbles) {
             for (Bubble b : bubbles) {
@@ -78,6 +103,13 @@ public class BubbleManager {
         }
     }
 
+    //TODO: ensure that new bubbles aren't placed in old bubbles
+    /**
+     * Used to add a new bubble to the 2D plane. It is a random position, and can be placed within another
+     * bubble
+     * @param d
+     * @return
+     */
     public boolean addNewBubble(Display d) {
         this.display = d;
 
@@ -107,6 +139,12 @@ public class BubbleManager {
         this.speedFactor = speedFactor;
     }
 
+    /**
+     * Used to see if a bubble, when the screen is touched at a point, is popped. If so,
+     * the bubble is popped.
+     * @param point the point being touched
+     * @return whether or not a bubble was popped
+     */
     public boolean poppedBubble(Vector2D point) {
         Bubble bub = null;
         synchronized (bubbles) {
@@ -123,6 +161,12 @@ public class BubbleManager {
         return false;
     }
 
+    //TODO: poping animation
+    /**
+     * Used to pop a bubble. Removes it, and plays any necesarry popping animations
+     * @param b
+     * @param bonus
+     */
     private void popBubble(Bubble b, boolean bonus) {
         synchronized (bubbles) {
             bubbles.remove(b);
