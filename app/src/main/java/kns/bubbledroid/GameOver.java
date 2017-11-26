@@ -21,13 +21,11 @@ public class GameOver extends AppCompatActivity {
 
         Button tryAgainButton = findViewById(R.id.Game_Over_Replay_Button);
         tryAgainButton.setOnClickListener(e->{
-            System.out.println("New Game");
             startActivity(new Intent(this, GameActivity.class));
         });
 
         Button homeButton = findViewById(R.id.Game_Over_Home_Button);
         homeButton.setOnClickListener(e->{
-            System.out.println("Home Menu");
             startActivity(new Intent(this, MainActivity.class));
         });
 
