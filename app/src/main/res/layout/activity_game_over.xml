@@ -17,7 +17,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/background" />
 
     <Button
@@ -28,7 +28,7 @@
         android:layout_marginEnd="36dp"
         android:layout_marginStart="8dp"
         android:background="@drawable/button_bg_rounded_corners"
-        android:text="Play Again"
+        android:text="@string/Game_Over_Play_Again_Button_Text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Game_Over_Home_Button"
         app:layout_constraintHorizontal_bias="0.6"
@@ -41,7 +41,7 @@
         android:layout_marginBottom="116dp"
         android:layout_marginEnd="64dp"
         android:background="@drawable/button_bg_rounded_corners"
-        android:text="Main Menu"
+        android:text="@string/Game_Over_Main_Menu_Button_Text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -51,8 +51,47 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="100dp"
         android:layout_marginTop="112dp"
-        android:text="Game Over"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView2"
         tools:textSize="36sp" />
+
+    <TextView
+        android:id="@+id/Game_Over_Score_Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="128dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/Game_Over_Score_Text"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/Game_Over_Score"
+        android:layout_width="wrap_content"
+        android:layout_height="84dp"
+        android:layout_marginEnd="168dp"
+        android:layout_marginTop="68dp"
+        android:text="0"
+        android:textColor="@android:color/holo_purple"
+        android:textSize="75sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Game_Over_Score_Text" />
+
+    <TextView
+        android:id="@+id/Game_Over_Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="92dp"
+        android:layout_marginTop="92dp"
+        android:text="@string/Game_Over_Title"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/Game_Over_Score_Text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.058" />
 </android.support.constraint.ConstraintLayout>
