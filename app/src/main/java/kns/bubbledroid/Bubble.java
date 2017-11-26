@@ -37,7 +37,7 @@ public class Bubble {
 
     public void update(float dt, float speedFactor) {
         if(radius <= maxRadius)
-            radius += (maxRadius + 10 - radius) * dt * 0.4;
+            radius += (maxRadius + 10 - radius) * dt ;
         else {/*TODO:remove bubble */}
         x += xvel * dt * speedFactor;
         y += yvel * dt * speedFactor;
