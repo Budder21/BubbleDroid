@@ -12,13 +12,17 @@
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:background="@android:color/white"
-        android:text="BACK"
+        android:layout_below="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="58dp"
+        android:background="@drawable/button_bg_rounded_corners"
+        android:text="@string/help_menu_back_button"
         android:textColor="@android:color/black"
+        android:textSize="24sp"
+        tools:alpha=".05"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="527dp" />
+        tools:layout_editor_absoluteY="527dp"
+        android:padding="14dp"/>
 
     <ImageView
         android:id="@+id/imageView"
@@ -27,6 +31,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="73dp"
+        android:contentDescription="@string/help_menu_help_text"
         app:srcCompat="@drawable/helpmenu" />
 
 </RelativeLayout>
