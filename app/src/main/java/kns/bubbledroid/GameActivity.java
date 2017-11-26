@@ -2,6 +2,7 @@ package kns.bubbledroid;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -26,5 +27,11 @@ public class GameActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         play.resume();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent e) {
+        play.onTouch(e);
+        return true;
     }
 }

@@ -7,6 +7,7 @@ import android.graphics.Paint;
 import android.graphics.Point;
 import android.support.annotation.Dimension;
 import android.view.Display;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.content.Context;
@@ -38,7 +39,7 @@ public class PlayState extends SurfaceView implements Runnable {
         surfaceHolder = getHolder();
         paint = new Paint();
 
-        bubbleManager = new BubbleManager(new HashSet<Bubble>());
+        bubbleManager = new BubbleManager();
 
         running = true;
         Thread t = new Thread(this);
@@ -83,6 +84,17 @@ public class PlayState extends SurfaceView implements Runnable {
 
     public void resume() {
 
+    }
+
+    public void onTouch(MotionEvent e) {
+         if(bubbleManager.poppedBubble(new Vector2D(e.getX(), e.getY()))) {
+            Thread t = new Thread(()-> {
+                long startTime = System.currentTimeMillis();
+                while(System.currentTimeMillis() - startTime < (int)(Math.random() * 1000) + 500);
+                bubbleManager.addNewBubble(this.getDisplay());
+            });
+            t.start();
+        }
     }
 
 }
