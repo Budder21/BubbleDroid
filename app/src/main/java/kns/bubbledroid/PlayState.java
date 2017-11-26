@@ -87,7 +87,7 @@ public class PlayState extends SurfaceView implements Runnable {
             canvas.drawBitmap(backgroundImage, 0, 0, paint);
             bubbleManager.draw(canvas, paint, surfaceHolder);
             paint.setTextSize(90);
-            paint.setColor(Color.YELLOW);
+            paint.setColor(Color.argb(200,214, 51, 255));
             DecimalFormat f = new DecimalFormat(("0"));
             canvas.drawText(f.format(time), 10, 80, paint);
 
