@@ -7,11 +7,22 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
+//TODO: actually support the options button
+/**
+ * The main activity of the game: when the app is launched, it goes to this activity. It shows
+ * the name of the game and three buttons: play, help, and options
+ */
 public class MainActivity extends AppCompatActivity {
 
-    private ImageButton playButton, helpButton;
+    /**
+     * The music player for the game
+     */
     private static MediaPlayer backgroundMusic;
 
+    /**
+     * Sets the layout and adds listeners for the three buttons
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,12 +33,12 @@ public class MainActivity extends AppCompatActivity {
             backgroundMusic.start();
         }
 
-        playButton = (ImageButton)findViewById(R.id.playButton);
+        ImageButton playButton = (ImageButton)findViewById(R.id.playButton);
         playButton.setOnClickListener(e->{
                 startActivity(new Intent(this, GameActivity.class));
         });
 
-        helpButton = (ImageButton)findViewById(R.id.helpButton);
+        ImageButton helpButton = (ImageButton)findViewById(R.id.helpButton);
         helpButton.setOnClickListener(e->{
             startActivity(new Intent(this, HelpActivity.class));
         });

@@ -30,14 +30,24 @@ import android.widget.TextView;
 public class PlayState extends SurfaceView implements Runnable {
 
 
-    //PlayState continues while running == True
+    //TODO: handle running variable to support pausing and do something when the game loop ends
+    /**
+     * While this is true, the game is running. When it becomes false, the game loop
+     * ends. It does not move to the game over screen.
+     */
     private boolean running;
     private SurfaceHolder surfaceHolder;
     private Canvas canvas;
     private Paint paint;
     private Bitmap backgroundImage;
     private BubbleManager bubbleManager;
+    /**
+     * The timer shown in the top right: counts down from 30 right now
+     */
     private float time;
+    /**
+     * Number of bubbles popped
+     */
     private int score;
 
     public PlayState(Context context) {
@@ -56,6 +66,9 @@ public class PlayState extends SurfaceView implements Runnable {
         t.start();
     }
 
+    /**
+     * Has the main loop of the game, which calculate deltatime, updates the world, and renders everything
+     */
     @Override
     public void run() {
         backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background);
@@ -75,6 +88,10 @@ public class PlayState extends SurfaceView implements Runnable {
         }
     }
 
+    /**
+     * Updates the bubble manager and, if time has run out, goes to the GameOVer activity
+     * @param dt delta time, or the time that has passed sense this method was last called
+     */
     private void update(float dt) {
         bubbleManager.update(dt);
         time -= dt;
@@ -91,6 +108,10 @@ public class PlayState extends SurfaceView implements Runnable {
         return running;
     }
 
+    /**
+     * Used to render all the elements of the world. Right now, this is just the bubbles, the score,
+     * and the timer
+     */
     private void draw() {
 
         canvas = surfaceHolder.lockCanvas();{
@@ -109,6 +130,7 @@ public class PlayState extends SurfaceView implements Runnable {
 
     }
 
+    //TODO: handle pausing
     public void pause() {
 
     }
@@ -117,6 +139,10 @@ public class PlayState extends SurfaceView implements Runnable {
 
     }
 
+    /**
+     * Called when the screen is touched. It sees if the touch pops a bubble.
+     * @param e holds information about the touch motion
+     */
     public void onTouch(MotionEvent e) {
         if(bubbleManager.poppedBubble(new Vector2D(e.getX(), e.getY())))
             score++;

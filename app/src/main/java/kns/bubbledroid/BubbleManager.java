@@ -128,13 +128,25 @@ public class BubbleManager {
         }
     }
 
+    /**
+     * @return the number of bubbles the manager handles
+     */
     public int numberOfBubbles() {
         return bubbles.size();
     }
 
+    /**
+     *
+     * @return the speed factor of the manager
+     */
     public float getSpeedFactor() {
         return speedFactor;
     }
+
+    /**
+     * Used to set the speed factor of the manager
+     * @param speedFactor the new speed factor for the manager
+     */
     public void setSpeedFactor(float speedFactor) {
         this.speedFactor = speedFactor;
     }
@@ -163,9 +175,11 @@ public class BubbleManager {
 
     //TODO: poping animation
     /**
-     * Used to pop a bubble. Removes it, and plays any necesarry popping animations
-     * @param b
-     * @param bonus
+     * Used to pop a bubble. Removes it, and plays any necesarry popping animations. It then
+     * creates a thread that will spawn another bubble. If a bonus
+     * bubble is requested, there is an 80 percent chance that the bubble is made as well.
+     * @param b the bubble to be deleted
+     * @param bonus whether or not the 80% change of the second buble being created is enabled
      */
     private void popBubble(Bubble b, boolean bonus) {
         synchronized (bubbles) {
@@ -181,6 +195,11 @@ public class BubbleManager {
         t.start();
     }
 
+    /**
+     * Supposed to do collision stuff...
+     * @param b1
+     * @param b2
+     */
     private void fixBubbleCollision(Bubble b1, Bubble b2) {
        /* double backTimeRoot = 0.5 * Math.sqrt(4 * Math.pow(b1.getXFloat() * (b1.getXVel() - b2.getXVel()) +
                 b2.getXFloat() * (-b1.getXVel() + b2.getXVel()) + (b1.getYFloat() - b2.getYFloat()) * (b1.getYVel() - b2.getYVel()), 2) -
