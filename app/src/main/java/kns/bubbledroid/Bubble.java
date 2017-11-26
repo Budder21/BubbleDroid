@@ -14,20 +14,34 @@ import android.content.Context;
 public class Bubble {
 
     private int color;
-    private Point position;
+    private float x, y;
     private float xvel;
     private float yvel;
+    private float radius;
 
-    public Bubble(Point position, float xvel, float yvel, int color){
-        this.position = position;
+    private static int maxRadius = 150;
+
+    public Bubble(float x, float y, float xvel, float yvel, int color){
+        this.x = x;
+        this.y = y;
         this.color = color;
         this.xvel = xvel;
         this.yvel = yvel;
+        radius = 2;
     }
 
     @Override
     public String toString(){
-        return "Bubble|position: "+position+"velocity: "+xvel+","+yvel+"color: "+color;
+        return "Bubble|position: "+x + ", " + y +"velocity: "+xvel+","+yvel+"color: "+color;
+    }
+
+    public void update(float dt) {
+        if(radius < maxRadius)
+            radius += (maxRadius + 10 - radius) * dt * 0.4;
+        else {/*TODO:remove bubble */}
+        x += xvel * dt;
+        y += xvel * dt;
+        System.out.println(radius);
     }
 
     @Override
@@ -35,15 +49,23 @@ public class Bubble {
         return toString().hashCode();
     }
 
-    public Point getPosition() {
-        return position;
+    public int getRadius() {
+        return (int)radius;
     }
 
     public int getX() {
-        return position.x;
+        return (int)x;
     }
 
     public int getY() {
-        return position.y;
+        return (int)y;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public static int getMaxRadius() {
+        return maxRadius;
     }
 }

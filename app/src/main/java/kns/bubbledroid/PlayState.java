@@ -1,16 +1,21 @@
 package kns.bubbledroid;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.support.annotation.Dimension;
+import android.view.Display;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.content.Context;
 import android.graphics.Color;
 import java.util.HashSet;
+import android.view.WindowManager;
 
 
-/**@author David
+/**@author David and Calvin
  * concrete implementation of gamestate
  * implements Runnable for threading
  * describes the state of active gameplay */
@@ -23,19 +28,17 @@ public class PlayState extends SurfaceView implements Runnable {
     private SurfaceHolder surfaceHolder;
     private Canvas canvas;
     private Paint paint;
+    private Bitmap backgroundImage;
 
     private BubbleManager bubbleManager;
 
     public PlayState(Context context) {
         super(context);
 
-        setBackgroundResource(R.drawable.background);
-
         surfaceHolder = getHolder();
         paint = new Paint();
 
         bubbleManager = new BubbleManager(new HashSet<Bubble>());
-        bubbleManager.registerBubble(new Bubble(new Point(50,50),0,0, Color.WHITE));
 
         running = true;
         Thread t = new Thread(this);
@@ -44,9 +47,16 @@ public class PlayState extends SurfaceView implements Runnable {
 
     @Override
     public void run() {
-        float currTime = System.currentTimeMillis();
+        backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background);
+        backgroundImage = Bitmap.createScaledBitmap(backgroundImage, this.getDisplay().getWidth(), this.getDisplay().getHeight(), true);
+
+        for(int i = 0; i < 3; i++)
+            bubbleManager.addNewBubble(this.getDisplay());
+
+        long currTime = System.currentTimeMillis();
         while(running){
             float delta = (System.currentTimeMillis() - currTime) / 1000f;
+            currTime = System.currentTimeMillis();
             update(delta);
             draw();
         }
@@ -59,7 +69,7 @@ public class PlayState extends SurfaceView implements Runnable {
     private void draw() {
         if (surfaceHolder.getSurface().isValid()) {
             canvas = surfaceHolder.lockCanvas();
-            //canvas.drawColor(Color.BLACK);
+            canvas.drawBitmap(backgroundImage,0,0,paint);
 
             bubbleManager.draw(canvas, paint, surfaceHolder);
 
