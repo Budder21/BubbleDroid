@@ -80,7 +80,9 @@ public class PlayState extends SurfaceView implements Runnable {
         time -= dt;
         if(time<=0) {
             running = false;
-            super.getContext().startActivity(new Intent(getContext(), GameOver.class));
+            Intent intent = new Intent(getContext(), GameOver.class);
+            intent.putExtra("score", score);
+            super.getContext().startActivity(intent);
 
         }
     }
@@ -94,7 +96,7 @@ public class PlayState extends SurfaceView implements Runnable {
         canvas = surfaceHolder.lockCanvas();{
 
             canvas.drawBitmap(backgroundImage, 0, 0, paint);
-            bubbleManager.draw(canvas, paint, surfaceHolder);
+            bubbleManager.draw(canvas, paint);
 
             paint.setTextSize(110);
             paint.setColor(Color.argb(200,214, 51, 255));

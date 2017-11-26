@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 /**
  * @author Calvin
@@ -18,15 +19,20 @@ public class GameOver extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_over);
 
-        Button tryAgainButton = (Button)findViewById(R.id.Game_Over_Replay_Button);
+        Button tryAgainButton = findViewById(R.id.Game_Over_Replay_Button);
         tryAgainButton.setOnClickListener(e->{
             System.out.println("New Game");
             startActivity(new Intent(this, GameActivity.class));
         });
-        Button homeButton = (Button)findViewById(R.id.Game_Over_Home_Button);
-        tryAgainButton.setOnClickListener(e->{
+
+        Button homeButton = findViewById(R.id.Game_Over_Home_Button);
+        homeButton.setOnClickListener(e->{
             System.out.println("Home Menu");
             startActivity(new Intent(this, MainActivity.class));
         });
+
+        int score = getIntent().getIntExtra("score", 0);
+        ((TextView)findViewById(R.id.Game_Over_Score)).setText(String.valueOf(score));
+
     }
 }
