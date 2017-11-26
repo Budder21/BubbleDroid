@@ -27,7 +27,8 @@
         android:layout_marginBottom="116dp"
         android:layout_marginEnd="36dp"
         android:layout_marginStart="8dp"
-        android:text="Button"
+        android:background="@drawable/button_bg_rounded_corners"
+        android:text="Play Again"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Game_Over_Home_Button"
         app:layout_constraintHorizontal_bias="0.6"
@@ -39,7 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="116dp"
         android:layout_marginEnd="64dp"
-        android:text="Button"
+        android:background="@drawable/button_bg_rounded_corners"
+        android:text="Main Menu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
