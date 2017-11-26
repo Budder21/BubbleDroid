@@ -1,5 +1,6 @@
 package kns.bubbledroid;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -78,9 +79,14 @@ public class PlayState extends SurfaceView implements Runnable {
         bubbleManager.update(dt);
         time -= dt;
         if(time<=0) {
-            time = 0;
-            //TODO switch activity
+            running = false;
+            super.getContext().startActivity(new Intent(getContext(), GameOver.class));
+
         }
+    }
+
+    public boolean isRunning() {
+        return running;
     }
 
     private void draw() {

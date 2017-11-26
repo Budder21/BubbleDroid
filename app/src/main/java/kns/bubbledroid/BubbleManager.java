@@ -81,8 +81,8 @@ public class BubbleManager {
     public boolean addNewBubble(Display d) {
         this.display = d;
 
-        int x = Bubble.getMaxRadius() / 2 + (int)(Math.random() * (d.getWidth() - Bubble.getMaxRadius()));
-        int y = Bubble.getMaxRadius() / 2 + (int)(Math.random() * (d.getHeight() - Bubble.getMaxRadius()));
+        int x = Bubble.getAbsMaxRadius() / 2 + (int)(Math.random() * (d.getWidth() - Bubble.getAbsMaxRadius()));
+        int y = Bubble.getAbsMaxRadius() / 2 + (int)(Math.random() * (d.getHeight() - Bubble.getAbsMaxRadius()));
 
         float xvel = (float)Math.random() * 50 - 25;
         if(Math.abs(xvel) < 18) xvel *= 3;
