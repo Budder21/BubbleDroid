@@ -18,15 +18,29 @@ import java.util.Set;
 public class BubbleManager {
 
     private Set<Bubble> bubbles;
+    private Display display;
+
+    private float speedFactor;
 
     public BubbleManager(Set<Bubble> bubbles){
         this.bubbles=bubbles;
+        speedFactor = 5;
     }
 
     public boolean update(float dt){
         Iterator<Bubble> i = bubbles.iterator();
         for(Bubble b: bubbles) {
-            b.update(dt);
+            b.update(dt, speedFactor);
+            if(b.getX() - b.getRadius() <= 0)
+                b.setXVel(Math.abs(b.getXVel()));
+            else if(b.getX() + b.getRadius() > display.getWidth())
+                b.setXVel(-Math.abs(b.getXVel()));
+
+            if(b.getY() - b.getRadius() <= 0)
+                b.setYVel(Math.abs(b.getYVel()));
+            else if(b.getY() + b.getRadius() > display.getHeight())
+                b.setYVel(-Math.abs(b.getYVel()));
+
         }
         return !bubbles.isEmpty();
     }
@@ -49,13 +63,15 @@ public class BubbleManager {
     }
 
     public boolean addNewBubble(Display d) {
+        this.display = d;
+
         int x = Bubble.getMaxRadius() / 2 + (int)(Math.random() * (d.getWidth() - Bubble.getMaxRadius()));
         int y = Bubble.getMaxRadius() / 2 + (int)(Math.random() * (d.getHeight() - Bubble.getMaxRadius()));
 
         float xvel = (float)Math.random() * 50 - 25;
-        if(Math.abs(xvel) < 15) xvel *= 3;
+        if(Math.abs(xvel) < 18) xvel *= 3;
         float yvel = (float)Math.random() * 50 - 25;
-        if(Math.abs(yvel) < 15) yvel *= 3;
+        if(Math.abs(yvel) < 18) yvel *= 3;
 
         int color = Color.rgb( (int)(Math.random() * 255),(int)(Math.random() * 255),(int)(Math.random() * 255) );
 
@@ -64,5 +80,12 @@ public class BubbleManager {
 
     public int numberOfBubbles() {
         return bubbles.size();
+    }
+
+    public float getSpeedFactor() {
+        return speedFactor;
+    }
+    public void setSpeedFactor(float speedFactor) {
+        this.speedFactor = speedFactor;
     }
 }

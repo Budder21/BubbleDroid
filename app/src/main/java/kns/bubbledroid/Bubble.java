@@ -35,13 +35,12 @@ public class Bubble {
         return "Bubble|position: "+x + ", " + y +"velocity: "+xvel+","+yvel+"color: "+color;
     }
 
-    public void update(float dt) {
+    public void update(float dt, float speedFactor) {
         if(radius < maxRadius)
             radius += (maxRadius + 10 - radius) * dt * 0.4;
         else {/*TODO:remove bubble */}
-        x += xvel * dt;
-        y += xvel * dt;
-        System.out.println(radius);
+        x += xvel * dt * speedFactor;
+        y += yvel * dt * speedFactor;
     }
 
     @Override
@@ -67,5 +66,19 @@ public class Bubble {
 
     public static int getMaxRadius() {
         return maxRadius;
+    }
+
+    public float getXVel() {
+        return xvel;
+    }
+    public void setXVel(float xvel) {
+        this.xvel = xvel;
+    }
+
+    public float getYVel() {
+        return yvel;
+    }
+    public void setYVel(float yvel) {
+        this.yvel = yvel;
     }
 }
