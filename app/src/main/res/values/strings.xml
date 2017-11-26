@@ -2,4 +2,5 @@
     <string name="app_name">BubbleDroid</string>
     <string name="help_menu_back_button">BACK</string>
     <string name="help_menu_help_text">tells the user how to play the game</string>
+    <string name="Game_Over_BackGround_Image_Description">background image</string>
 </resources>
