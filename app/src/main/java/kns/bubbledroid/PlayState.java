@@ -39,7 +39,7 @@ public class PlayState extends SurfaceView implements Runnable {
     public PlayState(Context context) {
         super(context);
         float startTime = System.currentTimeMillis();
-        time = System.currentTimeMillis() - startTime;
+        time = (System.currentTimeMillis() - startTime)/1000f;
         score = 0;
 
         surfaceHolder = getHolder();
@@ -60,10 +60,10 @@ public class PlayState extends SurfaceView implements Runnable {
         for(int i = 0; i < 3; i++)
             bubbleManager.addNewBubble(this.getDisplay());
 
-        long currTime = System.currentTimeMillis();
+        long currTime;
         while(running){
-            float delta = (System.currentTimeMillis() - currTime) / 1000f;
             currTime = System.currentTimeMillis();
+            float delta = (System.currentTimeMillis() - currTime) / 1000f;
             update(delta);
             if (surfaceHolder.getSurface().isValid())
                 draw();
@@ -73,6 +73,7 @@ public class PlayState extends SurfaceView implements Runnable {
     private void update(float dt) {
         bubbleManager.update(dt);
         time += dt;
+        System.out.println(time);
     }
 
     private void draw() {
