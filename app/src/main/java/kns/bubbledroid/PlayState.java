@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.media.MediaPlayer;
+import android.provider.MediaStore;
 import android.support.annotation.Dimension;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -14,6 +16,7 @@ import android.content.Context;
 import android.graphics.Color;
 import java.util.HashSet;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 
 /**@author David and Calvin
@@ -30,11 +33,15 @@ public class PlayState extends SurfaceView implements Runnable {
     private Canvas canvas;
     private Paint paint;
     private Bitmap backgroundImage;
-
     private BubbleManager bubbleManager;
+    private float time;
+    private int score;
 
     public PlayState(Context context) {
         super(context);
+        float startTime = System.currentTimeMillis();
+        time = System.currentTimeMillis() - startTime;
+        score = 0;
 
         surfaceHolder = getHolder();
         paint = new Paint();
@@ -59,23 +66,26 @@ public class PlayState extends SurfaceView implements Runnable {
             float delta = (System.currentTimeMillis() - currTime) / 1000f;
             currTime = System.currentTimeMillis();
             update(delta);
-            draw();
+            if (surfaceHolder.getSurface().isValid())
+                draw();
         }
     }
 
     private void update(float dt) {
         bubbleManager.update(dt);
+        time += dt;
     }
 
     private void draw() {
-        if (surfaceHolder.getSurface().isValid()) {
-            canvas = surfaceHolder.lockCanvas();
-            canvas.drawBitmap(backgroundImage,0,0,paint);
 
+        canvas = surfaceHolder.lockCanvas();{
+
+            canvas.drawBitmap(backgroundImage, 0, 0, paint);
             bubbleManager.draw(canvas, paint, surfaceHolder);
+            canvas.drawText(String.valueOf(time), 0, 0, paint);
 
-            surfaceHolder.unlockCanvasAndPost(canvas);
-        }
+        }surfaceHolder.unlockCanvasAndPost(canvas);
+
     }
 
     public void pause() {
