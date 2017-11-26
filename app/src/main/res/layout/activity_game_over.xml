@@ -59,11 +59,13 @@
         android:id="@+id/Game_Over_Score_Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="128dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/Game_Over_Score_Text"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:textSize="24sp" />
 
@@ -71,13 +73,15 @@
         android:id="@+id/Game_Over_Score"
         android:layout_width="wrap_content"
         android:layout_height="84dp"
-        android:layout_marginEnd="168dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="72dp"
         android:text="0"
         android:textColor="@android:color/holo_purple"
         android:textSize="75sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Game_Over_Score_Text" />
 
     <TextView
@@ -85,13 +89,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="92dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="92dp"
         android:text="@string/Game_Over_Title"
         android:textSize="40sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/Game_Over_Score_Text"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView2"
         app:layout_constraintVertical_bias="0.058" />
 </android.support.constraint.ConstraintLayout>
