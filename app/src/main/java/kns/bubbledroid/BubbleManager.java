@@ -3,15 +3,13 @@ package kns.bubbledroid;
 import android.graphics.Color;
 import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
-import android.graphics.Point;
-import android.support.annotation.Dimension;
 import android.view.Display;
-import android.view.SurfaceHolder;
 import android.graphics.Canvas;
 
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Set;
+
+import kns.utils.Constants;
+import kns.utils.Vector2D;
 
 /**@author David and Calvin
  * This class contains all the bubbles that appear on the screen
@@ -88,7 +86,6 @@ public class BubbleManager {
         paint.setStrokeWidth(3);
         synchronized (bubbles) {
             for (Bubble b : bubbles) {
-                //canvas.drawBitmap(b.getBitmap(), b.getX(), b.getY(), paint);
                 paint.setColorFilter(new LightingColorFilter(b.getColor(), b.getColor()));
                 paint.setColor(Color.WHITE);
                 paint.setStyle(Paint.Style.STROKE);
@@ -189,7 +186,7 @@ public class BubbleManager {
             long startTime = System.currentTimeMillis();
             while(System.currentTimeMillis() - startTime < (int)(Math.random() * 1000) + 500);
             addNewBubble(display);
-            if(bonus && Math.random() > 0.8)
+            if(bonus && Math.random() < Constants.DOUBLE_BUBBLE_CHANCE)
                 addNewBubble(display);
         });
         t.start();

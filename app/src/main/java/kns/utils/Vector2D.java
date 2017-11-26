@@ -1,4 +1,4 @@
-package kns.bubbledroid;
+package kns.utils;
 
 /**
  * Created by calvi on 11/25/2017.

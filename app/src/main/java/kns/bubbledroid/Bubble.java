@@ -1,10 +1,7 @@
 package kns.bubbledroid;
 
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Point;
-import android.graphics.Bitmap;
-import android.content.Context;
+import kns.utils.Constants;
+import kns.utils.Vector2D;
 
 
 /**
@@ -21,7 +18,7 @@ public class Bubble {
     private float yvel;
     private float radius;
 
-    private int maxRadius = 145;
+    private int maxRadius = Constants.MAX_BUBBLE_RADIUS;
 
     /**
      * This is the only constructor for the bubble, which initialized a position, velocity, and tint color
@@ -38,7 +35,7 @@ public class Bubble {
         this.xvel = xvel;
         this.yvel = yvel;
         radius = 2;
-        maxRadius += (int)(Math.random() * 30) - 15;
+        maxRadius += (int)(Math.random() * Constants.BUBBLE_RADIUS_VARIANCE) - Constants.BUBBLE_RADIUS_VARIANCE / 2;
     }
 
     @Override
@@ -55,7 +52,7 @@ public class Bubble {
      */
     public void update(float dt, float speedFactor) {
         if(radius <= maxRadius)
-            radius += (maxRadius + 10 - radius) * dt ;
+            radius += (maxRadius + 10 - radius) * dt * Constants.BUBBLE_GROWTH_SPEED ;
         x += xvel * dt * speedFactor;
         y += yvel * dt * speedFactor;
     }
@@ -110,7 +107,7 @@ public class Bubble {
      * @return  the highest possible radius of any bubble
      */
     public static int getAbsMaxRadius() {
-        return 160;
+        return Constants.MAX_BUBBLE_RADIUS + Constants.BUBBLE_RADIUS_VARIANCE / 2;
     }
 
     /**

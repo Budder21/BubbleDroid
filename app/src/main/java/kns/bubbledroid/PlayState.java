@@ -5,21 +5,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.graphics.Point;
-import android.media.MediaPlayer;
-import android.provider.MediaStore;
-import android.support.annotation.Dimension;
-import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.content.Context;
-import android.graphics.Color;
 
 import java.text.DecimalFormat;
-import java.util.HashSet;
-import android.view.WindowManager;
-import android.widget.TextView;
+
+import kns.utils.Constants;
+import kns.utils.Vector2D;
 
 
 /**@author David and Calvin
@@ -120,7 +114,7 @@ public class PlayState extends SurfaceView implements Runnable {
             bubbleManager.draw(canvas, paint);
 
             paint.setTextSize(110);
-            paint.setColor(Color.argb(200,214, 51, 255));
+            paint.setColor(Constants.FONT_COLOR);
             DecimalFormat f = new DecimalFormat(("0"));
             canvas.drawText(f.format(time), 10, 100, paint);
             int xdel = score < 10 ? 70 : score < 100 ? 125 : 185;

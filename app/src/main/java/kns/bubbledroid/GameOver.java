@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import kns.utils.Constants;
+
 /**
  * @author Calvin
  * This is the game over screen the user sees upon completing the came. It shows a 'Try Again'
@@ -31,6 +33,7 @@ public class GameOver extends AppCompatActivity {
 
         int score = getIntent().getIntExtra("score", 0);
         ((TextView)findViewById(R.id.Game_Over_Score)).setText(String.valueOf(score));
+        ((TextView)findViewById(R.id.Game_Over_Score)).setTextColor(Constants.FONT_COLOR);
 
     }
 }
