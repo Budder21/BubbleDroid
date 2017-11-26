@@ -81,4 +81,34 @@ public class Bubble {
     public void setYVel(float yvel) {
         this.yvel = yvel;
     }
+
+    public void translate(float dx, float dy) {
+        this.x += dx;
+        this.y += dy;
+    }
+
+    public float getXFloat() {
+        return x;
+    }
+    public float getYFloat() {
+        return y;
+    }
+
+    public Vector2D getVelVector() {
+        return new Vector2D(xvel, yvel);
+    }
+
+    public void setVel(Vector2D vel) {
+        xvel = (float)vel.x;
+        yvel = (float)vel.y;
+    }
+
+    public void setPos(Vector2D pos) {
+        x = (float)pos.x;
+        y = (float)pos.y;
+    }
+
+    public Vector2D getPosVector() {
+        return new Vector2D(x,y);
+    }
 }
