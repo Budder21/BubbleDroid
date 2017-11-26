@@ -14,6 +14,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.content.Context;
 import android.graphics.Color;
+
+import java.text.DecimalFormat;
 import java.util.HashSet;
 import android.view.WindowManager;
 import android.widget.TextView;
@@ -40,7 +42,7 @@ public class PlayState extends SurfaceView implements Runnable {
     public PlayState(Context context) {
         super(context);
         float startTime = System.currentTimeMillis();
-        time = (System.currentTimeMillis() - startTime)/1000f;
+        time = 30;
         score = 0;
 
         surfaceHolder = getHolder();
@@ -62,18 +64,19 @@ public class PlayState extends SurfaceView implements Runnable {
             bubbleManager.addNewBubble(this.getDisplay());
 
         long currTime;
+        float delta = 0;
         while(running){
             currTime = System.currentTimeMillis();
-            float delta = (System.currentTimeMillis() - currTime) / 1000f;
             update(delta);
             if (surfaceHolder.getSurface().isValid())
                 draw();
+            delta = (System.currentTimeMillis() - currTime) / 1000f;
         }
     }
 
     private void update(float dt) {
         bubbleManager.update(dt);
-        time += dt;
+        time -= dt;
         System.out.println(time);
     }
 
@@ -83,7 +86,10 @@ public class PlayState extends SurfaceView implements Runnable {
 
             canvas.drawBitmap(backgroundImage, 0, 0, paint);
             bubbleManager.draw(canvas, paint, surfaceHolder);
-            canvas.drawText(String.valueOf(time), 0, 0, paint);
+            paint.setTextSize(90);
+            paint.setColor(Color.YELLOW);
+            DecimalFormat f = new DecimalFormat(("0"));
+            canvas.drawText(f.format(time), 10, 80, paint);
 
         }surfaceHolder.unlockCanvasAndPost(canvas);
 
@@ -98,8 +104,8 @@ public class PlayState extends SurfaceView implements Runnable {
     }
 
     public void onTouch(MotionEvent e) {
-        bubbleManager.poppedBubble(new Vector2D(e.getX(), e.getY()));
-        //TODO: if true, get score increase
+        if(bubbleManager.poppedBubble(new Vector2D(e.getX(), e.getY())))
+            score++;
     }
 
 }
