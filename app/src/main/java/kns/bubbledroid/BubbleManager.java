@@ -1,10 +1,10 @@
 package kns.bubbledroid;
 
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.view.Display;
-import android.graphics.Canvas;
 
 import java.util.ArrayList;
 
@@ -192,7 +192,7 @@ public class BubbleManager {
         t.start();
     }
 
-    /**
+    /**TODO Make this work!
      * Supposed to do collision stuff...
      * @param b1
      * @param b2

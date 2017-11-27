@@ -1,5 +1,6 @@
 package kns.bubbledroid;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -8,7 +9,6 @@ import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.content.Context;
 
 import java.text.DecimalFormat;
 
@@ -90,6 +90,7 @@ public class PlayState extends SurfaceView implements Runnable {
         bubbleManager.update(dt);
         time -= dt;
         if(time<=0) {
+            time=0;
             running = false;
             Intent intent = new Intent(getContext(), GameOver.class);
             intent.putExtra("score", score);
