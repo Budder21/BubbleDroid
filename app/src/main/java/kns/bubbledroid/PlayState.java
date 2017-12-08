@@ -8,10 +8,10 @@ import android.graphics.Paint;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.content.Context;
 
 import java.text.DecimalFormat;
 
+import kns.graphics.Recources;
 import kns.utils.Constants;
 import kns.utils.Vector2D;
 
@@ -30,6 +30,7 @@ public class PlayState extends SurfaceView implements Runnable {
      * ends. It does not move to the game over screen.
      */
     private boolean running;
+    private boolean paused;
     private SurfaceHolder surfaceHolder;
     private Canvas canvas;
     private Paint paint;
@@ -44,9 +45,8 @@ public class PlayState extends SurfaceView implements Runnable {
      */
     private int score;
 
-    public PlayState(Context context) {
-        super(context);
-        float startTime = System.currentTimeMillis();
+    public PlayState() {
+        super(Recources.currentActivity);
         time = 30;
         score = 0;
 
@@ -56,6 +56,7 @@ public class PlayState extends SurfaceView implements Runnable {
         bubbleManager = new BubbleManager();
 
         running = true;
+        paused = false;
         Thread t = new Thread(this);
         t.start();
     }
@@ -67,17 +68,20 @@ public class PlayState extends SurfaceView implements Runnable {
     public void run() {
         backgroundImage = BitmapFactory.decodeResource(getResources(), R.drawable.background);
         backgroundImage = Bitmap.createScaledBitmap(backgroundImage, this.getDisplay().getWidth(), this.getDisplay().getHeight(), true);
+        bubbleManager.setDisplay(this.getDisplay());
 
         for(int i = 0; i < 3; i++)
-            bubbleManager.addNewBubble(this.getDisplay());
+            bubbleManager.addNewBubble();
 
         long currTime;
         float delta = 0;
         while(running){
             currTime = System.currentTimeMillis();
-            update(delta);
-            if (surfaceHolder.getSurface().isValid())
-                draw();
+            if(!paused) {
+                update(delta);
+                if (surfaceHolder.getSurface().isValid())
+                    draw();
+            }
             delta = (System.currentTimeMillis() - currTime) / 1000f;
         }
     }
@@ -89,7 +93,7 @@ public class PlayState extends SurfaceView implements Runnable {
     private void update(float dt) {
         bubbleManager.update(dt);
         time -= dt;
-        if(time<=0) {
+        if (time <= 0) {
             running = false;
             Intent intent = new Intent(getContext(), GameOver.class);
             intent.putExtra("score", score);
@@ -116,7 +120,7 @@ public class PlayState extends SurfaceView implements Runnable {
             paint.setTextSize(110);
             paint.setColor(Constants.FONT_COLOR);
             DecimalFormat f = new DecimalFormat(("0"));
-            canvas.drawText(f.format(time), 10, 100, paint);
+            canvas.drawText(f.format(Math.abs(time)), 10, 100, paint);
             int xdel = score < 10 ? 70 : score < 100 ? 125 : 185;
             canvas.drawText(f.format(score), this.getDisplay().getWidth() - xdel, 100, paint);
 
@@ -126,11 +130,11 @@ public class PlayState extends SurfaceView implements Runnable {
 
     //TODO: handle pausing
     public void pause() {
-
+        paused = true;
     }
 
     public void resume() {
-
+        paused = false;
     }
 
     /**

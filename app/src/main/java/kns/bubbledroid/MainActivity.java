@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
+import kns.graphics.Recources;
+
 //TODO: actually support the options button
 /**
  * The main activity of the game: when the app is launched, it goes to this activity. It shows
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Recources.currentActivity = this;
         setContentView(R.layout.activity_main);
         if(backgroundMusic == null){
             backgroundMusic = MediaPlayer.create(this,R.raw.background);

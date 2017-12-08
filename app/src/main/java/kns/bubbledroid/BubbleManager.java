@@ -1,5 +1,6 @@
 package kns.bubbledroid;
 
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
@@ -8,6 +9,7 @@ import android.graphics.Canvas;
 
 import java.util.ArrayList;
 
+import kns.graphics.Recources;
 import kns.utils.Constants;
 import kns.utils.Vector2D;
 
@@ -34,6 +36,7 @@ public class BubbleManager {
      * speed factor to 5
      */
     public BubbleManager(){
+        this.display = null;
         this.bubbles= new ArrayList<Bubble> ();
         speedFactor = 5;
     }
@@ -76,7 +79,7 @@ public class BubbleManager {
         return !bubbles.isEmpty();
     }
 
-    //TODO: blurring behind bubbles
+    //TODO: use Glide library to resize bubble and speed up game
     /**
      * Used to draw all the bubbles to the current canvas
      * @param canvas the canvas being drawn to
@@ -87,13 +90,8 @@ public class BubbleManager {
         synchronized (bubbles) {
             for (Bubble b : bubbles) {
                 paint.setColorFilter(new LightingColorFilter(b.getColor(), b.getColor()));
-                paint.setColor(Color.WHITE);
-                paint.setStyle(Paint.Style.STROKE);
-                canvas.drawCircle(b.getX(), b.getY(), b.getRadius(), paint);
-
-                paint.setColor(Color.argb(50, 255, 255, 255));
-                paint.setStyle(Paint.Style.FILL);
-                canvas.drawCircle(b.getX(), b.getY(), b.getRadius(), paint);
+                Bitmap texture = Bitmap.createScaledBitmap(Recources.bubbleTexture, b.getRadius() * 2, b.getRadius() * 2, true);
+                canvas.drawBitmap(texture, b.getX() - b.getRadius(), b.getY() - b.getRadius(), paint);
             }
             paint.setColorFilter(null);
             paint.setAlpha(255);
@@ -104,14 +102,12 @@ public class BubbleManager {
     /**
      * Used to add a new bubble to the 2D plane. It is a random position, and can be placed within another
      * bubble
-     * @param d
-     * @return
+     * @return whether or not the bubble was added
      */
-    public boolean addNewBubble(Display d) {
-        this.display = d;
+    public boolean addNewBubble() {
 
-        int x = Bubble.getAbsMaxRadius() / 2 + (int)(Math.random() * (d.getWidth() - Bubble.getAbsMaxRadius()));
-        int y = Bubble.getAbsMaxRadius() / 2 + (int)(Math.random() * (d.getHeight() - Bubble.getAbsMaxRadius()));
+        int x = Bubble.getAbsMaxRadius() / 2 + (int)(Math.random() * (display.getWidth() - Bubble.getAbsMaxRadius()));
+        int y = Bubble.getAbsMaxRadius() / 2 + (int)(Math.random() * (display.getHeight() - Bubble.getAbsMaxRadius()));
 
         float xvel = (float)Math.random() * 50 - 25;
         if(Math.abs(xvel) < 18) xvel *= 3;
@@ -185,11 +181,23 @@ public class BubbleManager {
         Thread t = new Thread(()-> {
             long startTime = System.currentTimeMillis();
             while(System.currentTimeMillis() - startTime < (int)(Math.random() * 1000) + 500);
-            addNewBubble(display);
-            if(bonus && Math.random() < Constants.DOUBLE_BUBBLE_CHANCE)
-                addNewBubble(display);
+            addNewBubble();
+            if(bonus && addBonusBubble())
+                addNewBubble();
         });
         t.start();
+    }
+
+    private boolean addBonusBubble() {
+        double intercept = Math.pow(Constants.MAX_NUMBER_OF_BUBBLES, Constants.DOUBLE_BUBBLE_CHANCE);
+        double val = intercept - Math.pow(bubbles.size(), Constants.DOUBLE_BUBBLE_CHANCE);
+        double odds = (val / intercept); // ranges from 0-1
+        odds = odds * Constants.MAX_DOUBLE_BUBBLE_CHANCE;
+        return Math.random() < odds;
+    }
+
+    public void setDisplay(Display display) {
+        this.display = display;
     }
 
     /**

@@ -12,9 +12,18 @@ import android.graphics.Color;
 public class Constants {
 
     /**
-     * The proportion of popped bubbles that will spawn two more instead of one more
+     * A multiplier for the double bubbles. Higher numbers increase the curvage of the probability distribution. 1 is linear
      */
-    public static final float DOUBLE_BUBBLE_CHANCE = 0.2f;
+    public static final int DOUBLE_BUBBLE_CHANCE = 1;
+
+    /**
+     *The maximum number of bubbles that could appear
+     */
+    public static final int MAX_NUMBER_OF_BUBBLES = 8;
+    /**
+     * The maximum chance there can be of a second bubble apearing. This is the change when there are 0 bubbles
+     */
+    public static final float MAX_DOUBLE_BUBBLE_CHANCE = 0.2f;
 
     /**
      * The base maximum radius of a bubble.
@@ -34,6 +43,6 @@ public class Constants {
     /**
      * The color of the font in the game istelf and on the GameOVer actvity
      */
-    public static final int FONT_COLOR = Color.rgb(214, 51, 255);
+    public static final int FONT_COLOR = Color.rgb(255, 255, 100);
 
 }
